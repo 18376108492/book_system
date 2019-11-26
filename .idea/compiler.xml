@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="book_manager_book_interface" />
+        <module name="book_manager_book_service" />
+        <module name="book_manager_common" />
+        <module name="book_manager_order_interface" />
+        <module name="book_manager_order_service" />
+        <module name="book_manager_user_interface" />
+        <module name="book_manager_user_service" />
+        <module name="book_portal_web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="book_portal_web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
