@@ -53,7 +53,7 @@ public class Reslut implements Serializable {
 
     public Reslut(Object data) {
         this.status = 200;
-        this.msg = "OK";
+        this.msg = "操作成功";
         this.data = data;
     }
 

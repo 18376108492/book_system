@@ -3,6 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/book_manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/book_manager/book_manager_blog" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/book_manager/book_manager_blog/book_manager_blog_interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/book_manager/book_manager_blog/book_manager_blog_service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/book_manager/book_manager_book" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/book_manager/book_manager_book/book_manager_book_interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/book_manager/book_manager_book/book_manager_book_service" charset="UTF-8" />

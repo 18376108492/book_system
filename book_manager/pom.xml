@@ -16,6 +16,7 @@
         <module>book_manager_order</module>
         <module>book_manager_user</module>
         <module>book_manager_common</module>
+        <module>book_manager_blog</module>
     </modules>
 
     <dependencies>

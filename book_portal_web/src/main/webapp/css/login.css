@@ -1,0 +1,21 @@
+#myCarousel{
+            margin-left: 2%;
+            width: 800px;
+            height: 80%;
+            float: left;
+            z-index: 999;
+            display: inline;
+        }
+        #login{
+            float: left;
+            height: 250px;
+            width: 330px;
+            margin-left: 6%;
+            margin-top: 9%;
+            display: inline;
+            z-index: 999;
+        }
+        body{
+            padding:0;
+            margin:0;
+        }

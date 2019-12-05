@@ -9,7 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * book启动类
  */
 @SpringBootApplication
-@MapperScan(basePackages = "cn.itdan.haoke.dubbo.mapper")
+@MapperScan(basePackages = "cn.itdan.booksystem.mapper")
 public class BookProvider {
 
     public static void main(String[] args) {

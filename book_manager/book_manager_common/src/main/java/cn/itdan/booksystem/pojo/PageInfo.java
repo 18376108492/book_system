@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 房源查询分页结果集
+ * 查询分页结果集
  * @param <T>
  */
 @Data

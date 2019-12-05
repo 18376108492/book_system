@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="book_manager_blog_interface" />
+        <module name="book_manager_blog_service" />
         <module name="book_manager_book_interface" />
         <module name="book_manager_book_service" />
         <module name="book_manager_common" />
@@ -16,8 +18,5 @@
         <module name="book_portal_web" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="book_portal_web" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
