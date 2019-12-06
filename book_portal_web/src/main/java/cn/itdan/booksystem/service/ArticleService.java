@@ -121,8 +121,17 @@ public class ArticleService {
      * @param word
      * @return
      */
-    public Reslut selectByWord(String word){
+    public List<Article> selectByWord(String word){
       return    apiArticleService.selectByWord(word);
+    }
+
+    /**
+     * 删除文章操作
+     * @param id
+     * @return
+     */
+    public Reslut deleteById(Integer id) {
+        return apiArticleService.deleteById(id);
     }
 
 }

@@ -47,15 +47,14 @@ function ifdelete(id,title) {
     }, function(){
         $.ajax({
             type: 'POST',
-            url: '/api/article/del',
+            url: '/article/del',
             datatype:'json',
             data:{"id":id},
-            success: function(data){
-                if(data['stateCode']==1){
+            success: function(data) {
+                if (data.status == "200") {
                     layer.msg('删除成功!',{icon:1,time:1000});
                     setTimeout("window.location.reload()",1000);
-                }
-                else {
+                }else {
                     layer.msg('删除失败!',{icon:5,time:1000});
                 }
             },

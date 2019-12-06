@@ -45,7 +45,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/admin/article/search" method="GET">
             <input class="form-control mr-sm-2" type="search" placeholder="文章标题或内容..." aria-label="Search" name="word">
-            <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">搜索</button>
+            <button class="btn btn-outline-success my-2 my-sm-0 btn-sm"  type="submit">搜索</button>
         </form>
 
         <a class="btn btn-outline-danger btn-sm" href="/admin/logout" role="button">退出</a>

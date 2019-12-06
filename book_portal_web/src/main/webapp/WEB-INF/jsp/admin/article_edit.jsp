@@ -16,19 +16,13 @@
 </head>
 <body>
 <div style="position: relative;top: 10%">
-    <c:if test="${!empty succ}">
-        <div class="alert alert-success" role="alert">
-                ${succ}
-        </div>
-    </c:if>
-    <c:if test="${!empty error}">
-        <div class="alert alert-danger" role="alert">
-                ${error}
-        </div>
-    </c:if>
+    <div class="alert alert-success" role="alert">
+        <label> ${msg}</label>
+        <label><a href="/admin/main">返回后台主页</a></label>
+    </div>
 </div>
 <div class="container">
-    <form action="/admin/article/edit/do" method="post">
+    <form id="editForm" action="/admin/article/edit/do" method="post">
         <input type="hidden" value="${article.id}" name="id">
         <div class="form-group">
             <label for="title">文章标题</label>
@@ -54,19 +48,21 @@
         </div>
         <div class="form-group">
             <label for="editor">内容</label>
-            <script id="editor" type="text/plain"  name="content" style="width:1024px;height:500px;" >
-            </script>
+            <textarea class="form-control"  type="text/plain" id="editor" name="content" rows="15"> ${article.content}</textarea>
+            <%--<script id="editor" type="text/plain"  name="content" style="width:1024px;height:500px;" >--%>
+
+            <%--</script>--%>
             </div>
             <input type="submit" />
                 </form>
 
-                <script>
-                $(function(){
-                    var ue = UE.getEditor('editor');
-                    ue.ready(function() {
-                        ue.setContent($("#cont").html());
-                    });
-                });
+                <script type="text/javascript">
+                // $(function(){
+                //     var ue = UE.getEditor('editor');
+                //     ue.ready(function() {
+                //         ue.setContent($("#cont").html());
+                //     });
+                // });
             </script>
         </div>
 </body>

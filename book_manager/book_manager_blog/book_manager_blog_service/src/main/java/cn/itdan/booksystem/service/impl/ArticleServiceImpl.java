@@ -90,31 +90,31 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article>
 
        //判断文章对象字段是否为空
         if(StringUtils.isBlank(article.getTitle())){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getTitle参数为null");
             return false;
         }
         if(StringUtils.isBlank(article.getKeywords())){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getKeywords参数为null");
             return false;
         }
         if(StringUtils.isBlank(article.getDesci())){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getDesci参数为null");
             return false;
         }
         if(StringUtils.isBlank(article.getContent())){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getContent参数为null");
             return false;
         }
         if(null==article.getClick()){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getClick参数为null");
             return false;
         }
         if (null==article.getTime()){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getTime参数为null");
             return false;
         }
         if (null==article.getCatalogId()){
-            logger.error("更新文章操作失败,传入的文章参数为null");
+            logger.error("更新文章操作失败,传入的文章getCatalogId参数为null");
             return false;
         }
         super.update(article);

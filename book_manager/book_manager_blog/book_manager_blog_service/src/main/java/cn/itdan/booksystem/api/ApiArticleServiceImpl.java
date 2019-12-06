@@ -96,13 +96,13 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
     }
 
     @Override
-    public Reslut selectByWord(String word) {
+    public List<Article> selectByWord(String word) {
         if (StringUtils.isBlank(word)){
             logger.info("根据关键词搜索文章操作,传入的关键词为空");
-           return Reslut.ok(JsonUtils.objectToJson(new ArrayList<Article>()));
+           new ArrayList<Article>();
         }
         List<Article> list= articleService.selectByWord(word);
-        return Reslut.ok(JsonUtils.objectToJson(list));
+        return list;
     }
 
     @Override

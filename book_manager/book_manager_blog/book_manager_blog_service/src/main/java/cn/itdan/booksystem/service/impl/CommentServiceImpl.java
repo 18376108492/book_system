@@ -38,8 +38,8 @@ public class CommentServiceImpl  extends BaseServiceImpl<Comment>
 //
 //         IPage<Comment> pageList =super.queryPageList(queryWrapper,offset,limit);
         //List<Comment> commentList=commentMapper.pageList(article_id,offset,limit);
-        Integer page=(star-1)*size;
-        List<Comment> commentList=  commentMapper.allComments(article_id,page,size);
+       Integer page=(star-1)*size;
+        List<Comment> commentList=  commentMapper.allComments(article_id,star,size);
         logger.info("获取所有评论操作成功");
 
         return new PageInfo<Comment>(Long.valueOf(countAllNum()).intValue(),

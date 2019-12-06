@@ -28,12 +28,6 @@ public class ApiCommentServiceImpl implements ApiCommentService{
            logger.error("获取所有评论操作失败，传入的参数article_id为空");
            return new PageInfo<>(0,offset,limit,new ArrayList<Comment>());
         }
-        if(offset==null || offset<0){
-            offset=0;
-        }
-        if(limit==null  || limit<0){
-            limit=20;
-        }
         PageInfo<Comment> pageInfo= commentService.allComments(article_id,offset,limit);
 
        return  pageInfo;

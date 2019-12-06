@@ -64,7 +64,7 @@ public interface ApiArticleService {
      * @param word
      * @return
      */
-    Reslut selectByWord(String word);
+    List<Article> selectByWord(String word);
 
     /**
      * 添加文章

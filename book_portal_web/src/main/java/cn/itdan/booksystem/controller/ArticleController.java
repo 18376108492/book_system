@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -50,7 +52,7 @@ public class ArticleController {
             int id = Integer.parseInt(articleId);
             // HashMap<String ,Object> map= articleService.detail(id);
 
-            PageInfo<Comment> pageInfo = commentService.allComments(id, 0, 10);
+            PageInfo<Comment> pageInfo = commentService.allComments(id, 1, 10);
             Article article = articleService.selectById(id);
             Article lastArticle = articleService.selectLastArticle(id);
             Article nextArticle = articleService.selectNextArticle(id);
@@ -123,12 +125,12 @@ public class ArticleController {
     @RequestMapping(value = "/admin/article/search")
     public ModelAndView articleSearch(HttpServletRequest request){
         String word=request.getParameter("word");
-        Reslut reslut=null;
+        List<Article> reslut=null;
         if(StringUtils.isNotBlank(word)) {
              reslut = articleService.selectByWord(word);
         }
         ModelAndView modelAndView=new ModelAndView("/admin/article_list");
-        modelAndView.addObject("articles",reslut.getData());
+        modelAndView.addObject("articles",reslut);
         return modelAndView;
     }
 
@@ -160,7 +162,7 @@ public class ArticleController {
         logger.info("评论管理:/admin/article/comment");
         int id=Integer.parseInt(request.getParameter("id"));
         logger.info("评论管理:id"+id);
-        PageInfo<Comment> comments=commentService.allComments(id,0,10);
+        PageInfo<Comment> comments=commentService.allComments(id,1,10);
         ModelAndView modelAndView=new ModelAndView("/admin/comment_list");
         modelAndView.addObject("comments",comments.getRecords());
         return modelAndView;
@@ -178,6 +180,37 @@ public class ArticleController {
         ModelAndView modelAndView=new ModelAndView("/admin/article_edit");
         modelAndView.addObject("article",article);
         return modelAndView;
+    }
+
+    /**
+     * 修改文章操作
+     * @param article
+     * @param request
+     * @param redirectAttributes
+     * @return
+     */
+    @RequestMapping(value = "/admin/article/edit/do")
+    public String articleEditDo(Article article,
+                                      HttpServletRequest request,
+                                      RedirectAttributes redirectAttributes){
+        logger.info("修改文章:/admin/article/edit/do");
+        Reslut reslut= articleService.updateArticle(article);
+        redirectAttributes.addFlashAttribute("msg", reslut.getMsg());
+        return "redirect:/admin/article/add";
+    }
+
+    /**
+     * 删除文章操作
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/article/del", method = RequestMethod.POST)
+    @ResponseBody
+    public Reslut  loginCheck(HttpServletRequest request) {
+        logger.info("删除文章:/article/del");
+        int id=Integer.parseInt(request.getParameter("id"));
+        Reslut result=articleService.deleteById(id);
+        return result;
     }
 
 
