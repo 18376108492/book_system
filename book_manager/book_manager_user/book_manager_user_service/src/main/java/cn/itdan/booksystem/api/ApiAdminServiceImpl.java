@@ -57,4 +57,5 @@ public class ApiAdminServiceImpl implements  ApiAdminService{
        Integer row= adminService.selectCountByAdminId(adminId);
         return row;
     }
+
 }

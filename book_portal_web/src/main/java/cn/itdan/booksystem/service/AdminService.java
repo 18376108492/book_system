@@ -143,50 +143,71 @@ public class AdminService {
      * @param request
      * @return
      */
-    public HashMap<String,Object> toMain(HttpServletRequest request,String admin_token){
+    public HashMap<String,Object> toMain(HttpServletRequest request,String admin_token) {
 
-        HashMap<String,Object> map=new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         //检测传入的token是否有值
-        if(StringUtils.isBlank(admin_token)){
+        if (StringUtils.isBlank(admin_token)) {
             //查看cookie中是否有值
-            String cookie_token=CookieUtils.getCookieValue(request,ADMIN_COOKIE_TOKEN);
-            if(StringUtils.isNotBlank(cookie_token)){
-                admin_token=cookie_token;
-            }else {
+            String cookie_token = CookieUtils.getCookieValue(request, ADMIN_COOKIE_TOKEN);
+            if (StringUtils.isNotBlank(cookie_token)) {
+                admin_token = cookie_token;
+            } else {
                 map.put("err", "error");
                 return map;
             }
         }
 
-        String clientIp=request.getRemoteAddr();    //获取客户端IP，如：127.0.0.1
-        map.put("clientIp",clientIp);
+        String clientIp = request.getRemoteAddr();    //获取客户端IP，如：127.0.0.1
+        map.put("clientIp", clientIp);
         //获取本机地址
-        String hostIp=request.getLocalAddr();
-        map.put("hostIp",hostIp);
+        String hostIp = request.getLocalAddr();
+        map.put("hostIp", hostIp);
         //获取本机端口
-        int hostPort=request.getLocalPort();
-        map.put("hostPort",hostPort);
+        int hostPort = request.getLocalPort();
+        map.put("hostPort", hostPort);
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");//设置日期格式
         String dates = df.format(date);
-        map.put("dates",dates);
-        int articleCount=articleService.countAllNum();
-        map.put("articleCount",articleCount);
-        int commentCount=commentService.countAllNum();
-        map.put("commentCount",commentCount);
+        map.put("dates", dates);
+        int articleCount = articleService.countAllNum();
+        map.put("articleCount", articleCount);
+        int commentCount = commentService.countAllNum();
+        map.put("commentCount", commentCount);
 
+        //获取redis中的用户对象
+        String token = redisUtil.get("SESSION" + admin_token).toString();
+        Admin admin = JsonUtils.jsonToPojo(token, Admin.class);
+        int loginNum = apiAdminService.selectCountByAdminId(admin.getId());
+        map.put("loginNum", loginNum);
+
+        AdminLoginLog adminLoginLog = null;
+        if (apiAdminService.selectRencent(admin.getId()) != null && apiAdminService.selectRencent(admin.getId()).size() == 2) {
+            List<AdminLoginLog> adminLoginLogs = apiAdminService.selectRencent(admin.getId());
+            adminLoginLog = adminLoginLogs.get(1);
+        }
+        map.put("adminLoginLog", adminLoginLog);
+        return map;
+    }
+    /**
+     * 通过token获取
+     * @param admin_token
+     * @return
+     */
+    public Boolean getAdminByToken(String admin_token) {
+        //查看cookie中是否有值
+         if(StringUtils.isBlank(admin_token)){
+             return false;
+         }
         //获取redis中的用户对象
         String token= redisUtil.get("SESSION"+admin_token).toString();
         Admin admin= JsonUtils.jsonToPojo(token,Admin.class);
-        int loginNum=apiAdminService.selectCountByAdminId(admin.getId());
-        map.put("loginNum",loginNum);
-
-        AdminLoginLog adminLoginLog=null;
-        if (apiAdminService.selectRencent(admin.getId())!=null && apiAdminService.selectRencent(admin.getId()).size()==2){
-            List<AdminLoginLog> adminLoginLogs=apiAdminService.selectRencent(admin.getId());
-            adminLoginLog=adminLoginLogs.get(1);
+        if (null!=admin){
+            //更新admin过期时间
+            redisUtil.expire("SESSION"+admin_token,ADMIN_EXPIRE);
+            return true;
         }
-        map.put("adminLoginLog",adminLoginLog);
-        return map;
+        return false;
     }
+
 }

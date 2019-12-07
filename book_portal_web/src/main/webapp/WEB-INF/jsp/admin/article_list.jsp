@@ -43,8 +43,8 @@
             </li>
 
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="/admin/article/search" method="GET">
-            <input class="form-control mr-sm-2" type="search" placeholder="文章标题或内容..." aria-label="Search" name="word">
+        <form name="form" class="form-inline my-2 my-lg-0" action="/admin/article/search" method="GET" onSubmit="return beforeSubmit(this);">
+            <input class="form-control mr-sm-2" type="search" placeholder="文章标题或内容..." id="keyword" aria-label="Search" name="word">
             <button class="btn btn-outline-success my-2 my-sm-0 btn-sm"  type="submit">搜索</button>
         </form>
 
@@ -95,5 +95,14 @@
 </nav>
 <script src="../../../js/jquery-3.2.1.min.js"></script>
 <script src="../../../js/article_list.js"></script>
+<script type="text/javascript">
+    function beforeSubmit(form) {
+        if(form.word.value==''){
+            alert("搜索词为空哦！");
+            form.word.focus();
+            return false;
+        }
+    }
+</script>
 </body>
 </html>

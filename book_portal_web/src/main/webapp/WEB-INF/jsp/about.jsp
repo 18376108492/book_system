@@ -18,16 +18,16 @@
  <jsp:include page="common/header.jsp"/>
     <div id="bg" >
         <p>
-            重要的不是赚钱
+            人生是一场来之不易的修行
             <br>
-            而是让你有一段难忘的经历
+            请不要轻易放弃
         </p>
     </div>
     <div id="container">
         <article class="article">
             <p>
                 <br><br><br><br>
-            <h3>你来人间一趟，你要看看太阳</h3>
+            <h3>谢谢浏览，其他功能还待完善</h3>
             <br><br>
            <%-- <h3>邮箱:<a href="mailto:withstars@126.com">withstars@126.com</a></h3>--%>
             <br><br><br><br>

@@ -34,4 +34,5 @@ public interface AdminService {
      * @return
      */
     Integer selectCountByAdminId(Integer adminId);
+
 }

@@ -34,4 +34,5 @@ public interface ApiAdminService {
      * @return
      */
     Integer selectCountByAdminId(Integer adminId);
+
 }

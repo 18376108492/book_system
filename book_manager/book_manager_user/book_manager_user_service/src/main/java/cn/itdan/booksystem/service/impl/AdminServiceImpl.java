@@ -67,4 +67,6 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin>
         logger.info("获取指定ID_admin的登入次数操作，结果为:"+row);
         return row;
     }
+
+
 }

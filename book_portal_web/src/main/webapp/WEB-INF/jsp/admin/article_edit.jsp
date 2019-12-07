@@ -24,6 +24,11 @@
 <div class="container">
     <form id="editForm" action="/admin/article/edit/do" method="post">
         <input type="hidden" value="${article.id}" name="id">
+        <input type="hidden" value="${article.pic}" name="pic">
+        <input type="hidden" value="${article.click}" name="click">
+        <input type="hidden" value="${article.time}" name="time">
+        <input type="hidden" value="${article.created}" name="created">
+
         <div class="form-group">
             <label for="title">文章标题</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="文章标题" value="${article.title}">

@@ -19,10 +19,10 @@
  <jsp:include page="common/header.jsp"/>
    <div id="bg" >
        <p>
-            重要的不是赚钱
-            <br>
-            而是让你有一段难忘的经历
-        </p>
+           人生是一场来之不易的修行
+           <br>
+           请不要轻易放弃
+       </p>
     </div>
 </div>
 <div class="progress">
@@ -33,7 +33,7 @@
 <div class="search" style="float: right;">
 	 	<form class="navbar-form navbar-left" role="search" action="/admin/article/search" method="get">
                    <div class="form-group">
-                  <input type="text" name="word" class="form-control" placeholder="Search">
+                  <input type="text" name="keyword" class="form-control" placeholder="Search">
                  </div>
                 <button type="submit" class="btn btn-default">搜索</button>
                </form>
@@ -69,5 +69,16 @@
 </div>
     <jsp:include page="common/footer.jsp"/>
 
+<script type="text/javascript">
+
+    function beforeSubmit(form) {
+        if(form.keyword.value==''){
+            alert("搜索词为空哦！");
+            form.keyword.focus();
+            return false;
+        }
+    }
+
+</script>
 </body>
 </html>

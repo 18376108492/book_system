@@ -10,6 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 异常处理类
+ */
 @Configuration
 public class GlobalExeptionResolver implements HandlerExceptionResolver {
 

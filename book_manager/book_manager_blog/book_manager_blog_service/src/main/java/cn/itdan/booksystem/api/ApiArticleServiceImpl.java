@@ -78,6 +78,8 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
             logger.error("更新文章操作失败，传入的参数为空");
             return Reslut.build(400,"更新文章操作失败，传入的参数为空");
         }
+        //更新前获取之前对象的图片路径,点击数，发表时间
+        //获取文章ID
         boolean b= articleService.updateArticle(article);
         if(b){
             return Reslut.ok();
