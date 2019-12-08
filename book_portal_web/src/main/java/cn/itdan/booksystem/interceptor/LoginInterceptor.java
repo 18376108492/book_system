@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * 登入拦截器
@@ -44,8 +45,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             return flag;
           }
           try {
+              //生成唯一login_token,将其存入session域中,用于防止表单重复提交
+              //生成token
+              String login_token=UUID.randomUUID().toString();
+              request.getSession().setAttribute("LOGIN_TOKEN:"+login_token,login_token);
               // 通过接口跳转登录页面, 注:重定向后下边的代码还会执行 ;
-              response.sendRedirect("/admin");
+              response.sendRedirect("/login?login_token="+login_token);
           }catch (Exception e){
               e.printStackTrace();
           }

@@ -2,6 +2,7 @@ package cn.itdan.booksystem.api;
 
 import cn.itdan.booksystem.pojo.Admin;
 import cn.itdan.booksystem.pojo.AdminLoginLog;
+import cn.itdan.booksystem.pojo.Reslut;
 import cn.itdan.booksystem.service.AdminService;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
@@ -56,6 +57,19 @@ public class ApiAdminServiceImpl implements  ApiAdminService{
         }
        Integer row= adminService.selectCountByAdminId(adminId);
         return row;
+    }
+
+    @Override
+    public Reslut checkLogin(Integer id, String password) {
+        if(null==id){
+           logger.error("登入检查失败，id为null");
+           return Reslut.build(400,"登入检查失败，id为null");
+        }
+        if(null==password){
+            logger.error("登入检查失败，password为null");
+            return Reslut.build(400,"登入检查失败，password为null");
+        }
+        return adminService.checkLogin(id,password);
     }
 
 }

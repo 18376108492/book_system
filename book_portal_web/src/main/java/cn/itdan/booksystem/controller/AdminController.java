@@ -28,27 +28,44 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = {"/admin/index","/admin","/admin/login"})
-    public String toIndex(HttpServletRequest request) {
+    public String toIndex(HttpServletRequest request,HttpServletResponse response) {
 
         logger.info("跳转至登入界面:/admin");
         //自动登入
-        if(StringUtils.isNotBlank(adminService.autoLogin(request))){
-            String token=adminService.autoLogin(request);
+        String token=adminService.autoLogin(request,response);
+        if(StringUtils.isNotBlank(token)){
              return "redirect:/admin/main?admin_token="+token;
         }
         return "admin/login";
     }
 
+
     /**
-     * admin登入操作
+     * 跳转至登入界面
+     * @param request
+     * @return
+     */
+    @RequestMapping("/login")
+    public ModelAndView toLogin(HttpServletRequest request){
+        logger.info("跳转至登入界面");
+        ModelAndView view=new ModelAndView("admin/login");
+        String login_token= request.getParameter("login_token");
+        view.addObject("login_token",login_token);
+        return view;
+    }
+
+
+    /**
+     * admin登入检查操作
      */
     @RequestMapping(value = "/api/loginCheck",method = RequestMethod.POST)
     @ResponseBody
     public Reslut  loginCheck(HttpServletRequest request, HttpServletResponse response) {
        logger.info("admin登入操作:/api/loginCheck");
         Integer id=Integer.parseInt(request.getParameter("id"));
-        String passwd = request.getParameter("password");
-         Reslut reslut= adminService.login(request,response,id,passwd);
+         String passwd = request.getParameter("password");
+         String login_token=request.getParameter("login_token");
+         Reslut reslut= adminService.login(request,response,id,passwd,login_token);
         return reslut;
     }
 

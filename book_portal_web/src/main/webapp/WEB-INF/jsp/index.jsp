@@ -31,7 +31,7 @@
   </div>
 </div>
 <div class="search" style="float: right;">
-	 	<form class="navbar-form navbar-left" role="search" action="/admin/article/search" method="get">
+	 	<form name="from" class="navbar-form navbar-left" role="search" action="/admin/article/search" method="get" onsubmit=" return checkFrom()">
                    <div class="form-group">
                   <input type="text" name="keyword" class="form-control" placeholder="Search">
                  </div>
@@ -68,17 +68,6 @@
         </div>
 </div>
     <jsp:include page="common/footer.jsp"/>
-
-<script type="text/javascript">
-
-    function beforeSubmit(form) {
-        if(form.keyword.value==''){
-            alert("搜索词为空哦！");
-            form.keyword.focus();
-            return false;
-        }
-    }
-
-</script>
+<script src="../../js/article_list.js"></script>
 </body>
 </html>

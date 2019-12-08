@@ -126,10 +126,10 @@
                     </script>
     <div style="position: relative;left: 12%">
         <c:if test="${!empty lastArticle }">
-            <div ><a href="/article/?id=${lastArticle.id}"><h4><span class="label label-primary">上一篇:${lastArticle.title}</span></h4></a></div>
+            <div ><a href="/article/getArticlebyId?id=${lastArticle.id}"><h4><span class="label label-primary">上一篇:${lastArticle.title}</span></h4></a></div>
         </c:if>
         <c:if test="${!empty nextArticle }">
-            <div><a href="/article/?id=${nextArticle.id}"><h4><span class="label label-success">下一篇:${nextArticle.title}</span></h4></a></div>
+            <div><a href="/article/getArticlebyId?id=${nextArticle.id}"><h4><span class="label label-success">下一篇:${nextArticle.title}</span></h4></a></div>
         </c:if>
     </div>
     </div>

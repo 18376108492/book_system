@@ -5,12 +5,14 @@ import cn.itdan.booksystem.mapper.AdminLoginLogMapper;
 import cn.itdan.booksystem.mapper.AdminMapper;
 import cn.itdan.booksystem.pojo.Admin;
 import cn.itdan.booksystem.pojo.AdminLoginLog;
+import cn.itdan.booksystem.pojo.Reslut;
 import cn.itdan.booksystem.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -66,6 +68,22 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin>
         Integer row= adminLoginLogMapper.selectCountByAdminId(adminId);
         logger.info("获取指定ID_admin的登入次数操作，结果为:"+row);
         return row;
+    }
+
+    public Reslut checkLogin(Integer id, String password){
+        logger.info("登入检查操作");
+        //1.根据ID获取用户的密码
+        Admin admin= adminMapper.getById(id);
+        //2.对照密码是否正确
+        if(null==admin){
+            return  Reslut.build(400,"用户名或密码错误");
+        }
+        //先取出密码加密后再校验
+        if(!admin.getPassword().equals(password)){
+            return  Reslut.build(400,"用户名或密码错误");
+        }
+        logger.info("检查成功");
+        return Reslut.ok(admin);
     }
 
 

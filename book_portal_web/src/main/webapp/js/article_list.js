@@ -66,3 +66,32 @@ function ifdelete(id,title) {
 
     });
 }
+
+/**
+ * 检查提交是否为空
+ * @param form1
+ * @returns {boolean}
+ */
+function beforeSubmit(form1) {
+    if(form.keyword.value==''){
+        alert("搜索词为空哦！");
+        form.keyword.focus();
+        return false;
+    }
+}
+
+//定义一个全局变量
+var isFalg=false;
+/**
+ * 防止表单多提交事件
+ */
+function checkFrom() {
+    //为false表示表单未提交过
+    if (isFalg==false){
+        isFalg=true;
+        return true;
+    }else {
+        return false;
+    }
+}
+

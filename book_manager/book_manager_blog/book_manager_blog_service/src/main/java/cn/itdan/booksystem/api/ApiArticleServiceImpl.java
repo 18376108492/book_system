@@ -1,5 +1,6 @@
 package cn.itdan.booksystem.api;
 
+import cn.itdan.booksystem.mongodb.ArticleDAO;
 import cn.itdan.booksystem.pojo.Article;
 import cn.itdan.booksystem.pojo.PageInfo;
 import cn.itdan.booksystem.pojo.Reslut;
@@ -21,7 +22,8 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
     private Logger logger=LoggerFactory.getLogger(ApiArticleServiceImpl.class);
 
     @Autowired
-    private ArticleService articleService;
+   private ArticleDAO articleDAO;
+ //   private ArticleService articleService;
 
 
     @Override
@@ -31,7 +33,7 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
            // return Reslut.build(400,"根据ID获取文章操作,传入的ID为空");
          throw  new RuntimeException("根据ID获取文章操作,传入的ID为空");
         }
-        Article article=articleService.selectById(id);
+        Article article=articleDAO.selectById(id);
         return  article;
         //return Reslut.ok(JsonUtils.objectToJson(article));
     }
@@ -43,7 +45,7 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
            // return Reslut.build(400,"根据ID获取文章操作,传入的ID为空");
             throw  new RuntimeException("根据ID获取文章操作,传入的ID为空");
         }
-        Article article=articleService.selectLastArticle(id);
+        Article article=articleDAO.selectLastArticle(id);
        return article;
         //  return Reslut.ok(JsonUtils.objectToJson(article));
     }
@@ -55,20 +57,20 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
             throw  new RuntimeException("根据ID获取文章操作,传入的ID为空");
            // return Reslut.build(400,"根据ID获取文章操作,传入的ID为空");
         }
-        Article article=articleService.selectNextArticle(id);
+        Article article=articleDAO.selectNextArticle(id);
         return article;
         //return Reslut.ok(JsonUtils.objectToJson(article));
     }
 
     @Override
     public List<Article> queryAllArticle() {
-        List<Article> list= articleService.queryAllArticle();
+        List<Article> list= articleDAO.queryAllArticle();
         return list;
     }
 
     @Override
     public Integer countAllNum() {
-        Integer row= articleService.countAllNum();
+        Integer row= articleDAO.countAllNum();
         return row;
     }
 
@@ -80,7 +82,7 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
         }
         //更新前获取之前对象的图片路径,点击数，发表时间
         //获取文章ID
-        boolean b= articleService.updateArticle(article);
+        boolean b= articleDAO.updateArticle(article);
         if(b){
             return Reslut.ok();
         }
@@ -93,7 +95,7 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
             logger.error("删除文章操作,传入的ID为空");
             return Reslut.build(400,"删除文章操作,传入的ID为空");
         }
-       int row=articleService.deleteById(id);
+       int row=articleDAO.deleteById(id);
            return Reslut.build(200,"操作条数:"+row);
     }
 
@@ -103,7 +105,7 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
             logger.info("根据关键词搜索文章操作,传入的关键词为空");
            new ArrayList<Article>();
         }
-        List<Article> list= articleService.selectByWord(word);
+        List<Article> list= articleDAO.selectByWord(word);
         return list;
     }
 
@@ -113,8 +115,8 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
             logger.error("添加文章操作失败，传入的参数为空");
             return Reslut.build(400,"添加文章操作失败，传入的参数为空");
         }
-        boolean b= articleService.addArticle(article);
-        if(b){
+        Article saveArticle= articleDAO.saveArticle(article);
+        if(saveArticle!=null){
             return Reslut.ok();
         }
         return Reslut.build(400,"添加文章操作失败");
@@ -122,6 +124,6 @@ public class ApiArticleServiceImpl implements   ApiArticleService{
 
     @Override
     public PageInfo<Article> selectAllArticle(Integer star, Integer size) {
-        return articleService.selectAllArticle(star,size);
+        return articleDAO.selectAllArticle(star,size);
     }
 }

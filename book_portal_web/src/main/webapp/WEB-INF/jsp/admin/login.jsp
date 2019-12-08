@@ -183,6 +183,7 @@
         <div class="input-group">
             <span class="input-group-addon">密码</span>
             <input type="password" class="form-control" name="passwd" id="passwd">
+            <input type="hidden" class="form-control" name="login_token" id="login_token" value="${login_token}">
         </div>
         <br/>
         <p style="text-align: right;color: red;position: absolute" id="info"></p>
@@ -223,7 +224,8 @@
                     url: "/api/loginCheck",
                     data: {
                         id:$("#adminId").val() ,
-                        password: $("#passwd").val()
+                        password: $("#passwd").val(),
+                        login_token:$("#login_token").val()
                     },
                     dataType: "json",
                     success: function(data) {

@@ -62,36 +62,30 @@ public class AdminService {
     public Reslut login(HttpServletRequest request,
                         HttpServletResponse response,
                         Integer id,
-                        String password){
+                        String password,
+                        String admin_token){
+       //检查表单是否重复提交
+       //获取session域中的login_token
+       String  server_token=(String)request.getSession().getAttribute("LOGIN_TOKEN:"+admin_token);
+        if(StringUtils.isNotBlank(server_token) && StringUtils.isNotBlank(admin_token) && server_token.equals(admin_token)){
+            //加密密码
+            String newPassword=DigestUtils.md5DigestAsHex(password.getBytes());
+            //检查用户是否正确
+            Reslut reslut= apiAdminService.checkLogin(id,newPassword);
+            Admin admin=(Admin) reslut.getData();
 
-        //1.根据ID获取用户的密码
-       Admin admin= apiAdminService.getById(id);
-        //2.对照密码是否正确
-       if(null==admin){
-           return  Reslut.build(400,"用户名或密码错误");
-       }
-        //先取出密码加密后再校验
-        String newPassword=DigestUtils.md5DigestAsHex(password.getBytes());
-       if(!admin.getPassword().equals(newPassword)){
-           return  Reslut.build(400,"用户名或密码错误");
-       }
+            //把用户信息写入redis中，key: token value值为用户提示
+            //将密码设为null
+            admin.setPassword(null);
+            redisUtil.set("SESSION"+admin_token,JsonUtils.objectToJson(admin));
+            //设置admin过期时间
+            redisUtil.expire("SESSION"+admin_token,ADMIN_EXPIRE);
 
-        //生成token
-        String admin_token=UUID.randomUUID().toString();
-        //把用户信息写入redis中，key: token value值为用户提示
-        //将密码设为null
-        admin.setPassword(null);
-        redisUtil.set("SESSION"+admin_token,JsonUtils.objectToJson(admin));
-        //设置admin过期时间
-        redisUtil.expire("SESSION"+admin_token,ADMIN_EXPIRE);
-
-        //保存登入信息
-        saveAdminLog(request,id);
-
-        //将admin存入cookie,以便于下次自动登入操作
-        CookieUtils.setCookie(request,response,ADMIN_COOKIE_ID,id.toString(),ADMIN_COOKIE_TIME);
-        CookieUtils.setCookie(request,response,ADMIN_COOKIE_PASSWROD,newPassword,ADMIN_COOKIE_TIME);
-        CookieUtils.setCookie(request,response,ADMIN_COOKIE_TOKEN,admin_token,ADMIN_COOKIE_TIME);
+            //保存日志
+            saveLog(request,response,id,newPassword,admin_token);
+            //清除session，防止重复提交
+            request.removeAttribute("LOGIN_TOKEN:"+admin_token);
+        }
        return Reslut.ok(admin_token);
     }
 
@@ -107,13 +101,35 @@ public class AdminService {
         apiAdminService.addLoginLog(adminLoginLog);
     }
 
+    /**
+     * 保存登入日志和cookie
+     * @param request
+     * @param response
+     * @param id
+     * @param newPassword
+     * @param admin_token
+     */
+    public void saveLog(HttpServletRequest request,
+                        HttpServletResponse response,
+                        Integer id,
+                        String newPassword,
+                        String admin_token){
+        //保存登入信息
+        saveAdminLog(request,id);
+
+        //将admin存入cookie,以便于下次自动登入操作
+        CookieUtils.setCookie(request,response,ADMIN_COOKIE_ID,id.toString(),ADMIN_COOKIE_TIME);
+        CookieUtils.setCookie(request,response,ADMIN_COOKIE_PASSWROD,newPassword,ADMIN_COOKIE_TIME);
+        CookieUtils.setCookie(request,response,ADMIN_COOKIE_TOKEN,admin_token,ADMIN_COOKIE_TIME);
+    }
+
 
     /**
      * 使用Cookie实现自动登入
      * @param request
      * @return
      */
-    public String  autoLogin(HttpServletRequest request){
+    public String  autoLogin(HttpServletRequest request,HttpServletResponse response){
          //从cookie中获取上次登入的信息
         String cookie_id=CookieUtils.getCookieValue(request,ADMIN_COOKIE_ID);
         String cookie_password=CookieUtils.getCookieValue(request,ADMIN_COOKIE_PASSWROD);
@@ -124,7 +140,7 @@ public class AdminService {
         }
         //保存登入信息
         Integer id=Integer.parseInt(cookie_id);
-        saveAdminLog(request,id);
+        saveLog(request,response,id,cookie_password,cookie_token);
         return cookie_token;
     }
 

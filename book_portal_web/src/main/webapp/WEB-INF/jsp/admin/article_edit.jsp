@@ -27,7 +27,6 @@
         <input type="hidden" value="${article.pic}" name="pic">
         <input type="hidden" value="${article.click}" name="click">
         <input type="hidden" value="${article.time}" name="time">
-        <input type="hidden" value="${article.created}" name="created">
 
         <div class="form-group">
             <label for="title">文章标题</label>

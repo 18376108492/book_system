@@ -95,14 +95,5 @@
 </nav>
 <script src="../../../js/jquery-3.2.1.min.js"></script>
 <script src="../../../js/article_list.js"></script>
-<script type="text/javascript">
-    function beforeSubmit(form) {
-        if(form.word.value==''){
-            alert("搜索词为空哦！");
-            form.word.focus();
-            return false;
-        }
-    }
-</script>
 </body>
 </html>

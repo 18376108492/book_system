@@ -2,6 +2,7 @@ package cn.itdan.booksystem.api;
 
 import cn.itdan.booksystem.pojo.Admin;
 import cn.itdan.booksystem.pojo.AdminLoginLog;
+import cn.itdan.booksystem.pojo.Reslut;
 
 import java.util.List;
 
@@ -35,4 +36,11 @@ public interface ApiAdminService {
      */
     Integer selectCountByAdminId(Integer adminId);
 
+    /**
+     * 检查登入状况
+     * @param id
+     * @param password
+     * @return
+     */
+    Reslut checkLogin(Integer id, String password);
 }
