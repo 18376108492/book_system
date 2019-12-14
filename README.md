@@ -9,12 +9,12 @@
 ### (2)博客系统架构图
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/20191214205329.png)
 # 3.项目部署
-###（1）本地部署
+### （1）本地部署
 * download项目到idea中，在各小项目resource文件夹下application.propertis配置文件中配置好自己本地的mysql,redis,dubbo和mongodb。
 * 启动bolg模块和user模块下的springboot的启动类，启动BlogProvider.class和UserProvider.class。
 * 启动web模块下的springboot的启动类，启动WebApplication.class。
 * 当三个模块的启动好后，访问http://localhost:9091，就会跳转博客前台，访问http://localhost:9091/admin,在没有登入的情况下会被登入拦截器拦截跳转至登入界面登入，登入后进入博客后台系统。
-###（2）Linux部署
+### （2）Linux部署
 * 将项目文件打成zip包（其他包也行，能在Linux上解压就可以）。
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/do-01.png)
 * 将压缩好的文件上传到linux系统上，并将其解压后，cd 项目名 进入项目中，通过mvn install -Dmaven.test.skip=true,将项目下的模块打成jar包。
