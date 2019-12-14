@@ -7,10 +7,11 @@
         <groupId>cn.itdan</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>book_portal_web</artifactId>
-    <packaging>war</packaging>
+    <!--<packaging>war</packaging>-->
 
     <dependencies>
         <!--springboot的web支持-->
@@ -35,11 +36,6 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>cn.itdan</groupId>
-            <artifactId>book_manager_book_interface</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
             <groupId>cn.itdan</groupId>
@@ -117,13 +113,24 @@
 
     </dependencies>
 
-    <resources>
-    <resource>
-        <directory>src/main/webapp</directory>
-        <targetPath>META-INF/resources</targetPath>
-        <includes>
-            <include>**/**</include>
-        </includes>
-    </resource>
-    </resources>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--替换成实际的类全路径-->
+                    <mainClass>cn.itdan.booksystem.WebApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
