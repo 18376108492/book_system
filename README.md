@@ -22,7 +22,7 @@
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/do-03.png)
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/do-04.png)
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/do-05.png)
-*创建一个文件，将bolg模块，user模块和web模块的jar拷出放入文件中，通过Java -jar jar名 去运行jar包即可。
+* 创建一个文件，将bolg模块，user模块和web模块的jar拷出放入文件中，通过Java -jar jar名 去运行jar包即可。
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/do-06.png)
 ![](https://github.com/18376108492/book_system/blob/master/src/main/resources/img/do-07.png)
 # 4.项目浏览
